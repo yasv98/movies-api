@@ -1,0 +1,6 @@
+services:
+  app:
+    container_name: movies_api
+    build: .
+    ports:
+      - 8080:8080

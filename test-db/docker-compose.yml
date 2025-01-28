@@ -1,0 +1,10 @@
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/comments.json:/docker-entrypoint-initdb.d/comments.json:ro
+      - ./data/movies.json:/docker-entrypoint-initdb.d/movies.json:ro
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
