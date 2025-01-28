@@ -6,4 +6,4 @@ Run `make test-db-build` first to create a test datbase and then run `make movie
 
 ## Integration tests
 
-Run `make integration-tests`
+Run `make integration-tests`.

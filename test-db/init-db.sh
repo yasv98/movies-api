@@ -11,7 +11,7 @@ echo "Finished importing"
 echo "Creating indexes"
 mongosh sample_mflix --eval '
     // Index for title searches.
-    db.movies.createIndex({"title": 1});
+    db.movies.createIndex({"title": "text"});
 
     // Index to speed up comment lookups by movie and comment ID.
     db.comments.createIndex({"movie_id": 1, "_id": 1});

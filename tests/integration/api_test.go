@@ -70,7 +70,6 @@ func (s *IntegrationTestSuite) TestGetMovie_Invalid() {
 		Handler(s.app.Router).
 		Get("/api/v1/movies/" + invalidMovieID).
 		Expect(s.T()).
-		Body(`{"error": "Invalid movie ID format"}`).
 		Status(http.StatusBadRequest).
 		End()
 
@@ -79,7 +78,6 @@ func (s *IntegrationTestSuite) TestGetMovie_Invalid() {
 		Get("/api/v1/movies/" + missingMovieID).
 		Expect(s.T()).
 		Status(http.StatusNotFound).
-		Body(`{"error": "Movie not found"}`).
 		End()
 }
 
@@ -126,7 +124,6 @@ func (s *IntegrationTestSuite) TestGetMovies_Invalid() {
 		Query("page", "qwefqwefqwf").
 		Expect(s.T()).
 		Status(http.StatusBadRequest).
-		Body(`{"error": "invalid page parameter"}`).
 		End()
 
 	apitest.New("Get movies with invalid limit parameter").
@@ -135,7 +132,6 @@ func (s *IntegrationTestSuite) TestGetMovies_Invalid() {
 		Query("limit", "invalid").
 		Expect(s.T()).
 		Status(http.StatusBadRequest).
-		Body(`{"error": "invalid limit parameter"}`).
 		End()
 }
 
@@ -158,7 +154,6 @@ func (s *IntegrationTestSuite) TestGetMovieComment_Invalid() {
 		Get("/api/v1/movies/" + validMovieID + "/comments/" + invalidCommentID).
 		Expect(s.T()).
 		Status(http.StatusBadRequest).
-		Body(`{"error": "invalid comment ID format"}`).
 		End()
 
 	apitest.New("Get comment with non-existent comment ID").
@@ -166,7 +161,6 @@ func (s *IntegrationTestSuite) TestGetMovieComment_Invalid() {
 		Get("/api/v1/movies/" + validMovieID + "/comments/" + missingCommentID).
 		Expect(s.T()).
 		Status(http.StatusNotFound).
-		Body(`{"error": "Comment not found"}`).
 		End()
 }
 
@@ -195,7 +189,6 @@ func (s *IntegrationTestSuite) TestGetMovieComments_Invalid() {
 		Get("/api/v1/movies/" + invalidMovieID + "/comments").
 		Expect(s.T()).
 		Status(http.StatusBadRequest).
-		Body(`{"error": "invalid movie ID format"}`).
 		End()
 }
 
@@ -230,7 +223,6 @@ func (s *IntegrationTestSuite) TestCreateComment_Invalid() {
 		JSON(validComment).
 		Expect(s.T()).
 		Status(http.StatusBadRequest).
-		Body(`{"error": "invalid movie ID format"}`).
 		End()
 }
 

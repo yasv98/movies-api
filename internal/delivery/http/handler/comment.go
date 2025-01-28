@@ -25,19 +25,19 @@ func NewCommentHandler(commentService *service.CommentService) *CommentHandler {
 func (h *CommentHandler) CreateComment(c *gin.Context) {
 	movieId, err := primitive.ObjectIDFromHex(c.Param("movieId"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid movie ID format"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	var comment domain.Comment
 	if err := c.ShouldBindJSON(&comment); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid comment data"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	comment.MovieID = movieId
 	if err := h.commentService.CreateComment(c.Request.Context(), &comment); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create comment"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -80,13 +80,13 @@ func (h *CommentHandler) UpdateComment(c *gin.Context) {
 func (h *CommentHandler) DeleteComment(c *gin.Context) {
 	movieId, err := primitive.ObjectIDFromHex(c.Param("movieId"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid movie ID format"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	commentId, err := primitive.ObjectIDFromHex(c.Param("commentId"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid comment ID format"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -105,19 +105,19 @@ func (h *CommentHandler) DeleteComment(c *gin.Context) {
 func (h *CommentHandler) GetMovieComment(c *gin.Context) {
 	movieId, err := primitive.ObjectIDFromHex(c.Param("movieId"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid movie ID format"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	commentId, err := primitive.ObjectIDFromHex(c.Param("commentId"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid comment ID format"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	comment, err := h.commentService.GetMovieComment(c.Request.Context(), movieId, commentId)
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Comment not found"})
+		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -127,13 +127,13 @@ func (h *CommentHandler) GetMovieComment(c *gin.Context) {
 func (h *CommentHandler) GetMovieComments(c *gin.Context) {
 	movieId, err := primitive.ObjectIDFromHex(c.Param("movieId"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid movie ID format"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	comments, err := h.commentService.GetMovieComments(c.Request.Context(), movieId)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to fetch comments"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
