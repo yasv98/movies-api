@@ -2,7 +2,7 @@
 
 ## Local Development
 
-Run `make test-db-build` and `make movies-api` to start the service locally via Docer.
+Run `make test-db-build` first to create a test datbase and then run `make movies-api` to start the service locally via Docker.
 
 ## Integration tests
 
